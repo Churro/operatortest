@@ -5,7 +5,7 @@ on:
 
 env:
   BRANCH: ${{ github.head_ref || github.ref_name }}
-  IMAGE_REGISTRY: ttl.sh
+  IMAGE_REGISTRY: ghcr.io
   IMAGE_NAME: Churro/operatortest
   PLATFORMS: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x
   PR_PLATFORMS: linux/amd64,linux/arm64
@@ -42,7 +42,12 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-
+      - name: Login to Registry
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
+        with:
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Attest Image
         uses: ./.github/actions/attest-image
         with:
