@@ -160,7 +160,7 @@ jobs:
           sbom: 'result.json'
           signing-key: ${{ secrets.COSIGN_PRIVATE_KEY }}
           signing-password: ${{ secrets.COSIGN_PASSWORD }}
-      - name: Add build provenance attestation - ${{ matrix.registry }}
+      - name: Add build provenance attestation for ${{ matrix.registry }}
         uses: ./.github/actions/attest-artifact
         with:
           subject-name: ${{ matrix.url }}/${{ secrets[matrix.repository] }}
@@ -203,6 +203,8 @@ jobs:
       contents: write
       pull-requests: write
       id-token: write
+      attestations: write
+      artifact-metadata: write
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code

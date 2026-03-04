@@ -115,6 +115,8 @@ jobs:
     permissions:
       id-token: write
       packages: write
+      attestations: write
+      artifact-metadata: write
     runs-on: ubuntu-24.04
     env:
       HELM_PACKAGE_VERSION: 0.0.0-${{ needs.prepare.outputs.version_without_prefix }}

@@ -1,12 +1,13 @@
-name: Add SLSA build provenance attestation
-description: Generates and pushes a SLSA build provenance attestation for an OCI artifact (container image or Helm chart) to the registry
+name: Add SLSA Level 2 Build Provenance Attestation
+description: Generates and pushes a build provenance attestation for an OCI artifact to the registry
 inputs:
   subject-name:
-    description: Fully qualified name of the OCI artifact to attest (e.g. registry/namespace/repository)
+    description: OCI artifact name as it appears in the registry (e.g. "ghcr.io/dynatrace/dynatrace-operator")
     required: true
   subject-digest:
-    description: Immutable digest (sha256) of the OCI artifact to attest
+    description: Immutable digest of the OCI artifact to attest (e.g. "sha256:abc123...")
     required: true
+
 runs:
   using: "composite"
   steps:
