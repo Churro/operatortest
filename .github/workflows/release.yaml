@@ -160,8 +160,8 @@ jobs:
           sbom: 'result.json'
           signing-key: ${{ secrets.COSIGN_PRIVATE_KEY }}
           signing-password: ${{ secrets.COSIGN_PASSWORD }}
-      - name: Attest - ${{ matrix.registry }}
-        uses: ./.github/actions/attest-image
+      - name: Add build provenance attestation - ${{ matrix.registry }}
+        uses: ./.github/actions/attest-artifact
         with:
           subject-name: ${{ matrix.url }}/${{ secrets[matrix.repository] }}
           subject-digest: ${{ needs.build-push.outputs.digest }}

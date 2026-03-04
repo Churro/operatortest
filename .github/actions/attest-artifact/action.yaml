@@ -1,0 +1,18 @@
+name: Add SLSA build provenance attestation
+description: Generates and pushes a SLSA build provenance attestation for an OCI artifact (container image or Helm chart) to the registry
+inputs:
+  subject-name:
+    description: Fully qualified name of the OCI artifact to attest (e.g. registry/namespace/repository)
+    required: true
+  subject-digest:
+    description: Immutable digest (sha256) of the OCI artifact to attest
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Add build provenance attestation
+      uses: actions/attest@59d89421af93a897026c735860bf21b6eb4f7b26 # v4.1.0
+      with:
+        subject-name: ${{ inputs.subject-name }}
+        subject-digest: ${{ inputs.subject-digest }}
+        push-to-registry: true

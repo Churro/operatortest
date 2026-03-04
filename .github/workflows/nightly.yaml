@@ -101,8 +101,8 @@ jobs:
           sbom: 'result.json'
           signing-key: ${{ secrets.COSIGN_PRIVATE_KEY }}
           signing-password: ${{ secrets.COSIGN_PASSWORD }}
-      - name: Attest
-        uses: ./.github/actions/attest-image
+      - name: Add build provenance attestation
+        uses: ./.github/actions/attest-artifact
         with:
           subject-name: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ needs.build-push.outputs.digest }}

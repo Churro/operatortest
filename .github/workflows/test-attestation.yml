@@ -43,6 +43,7 @@ jobs:
     permissions:
       id-token: write
       attestations: write
+      artifact-metadata: write
       packages: write
     steps:
       - name: Checkout
@@ -56,7 +57,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Attest Image
-        uses: ./.github/actions/attest-image
+        uses: ./.github/actions/attest-artifact
         with:
           subject-name: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ needs.build-push.outputs.digest }}
